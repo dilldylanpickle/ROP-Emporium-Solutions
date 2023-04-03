@@ -23,7 +23,7 @@ Step 1. Clone the GitHub Repository
 > $ git clone https://github.com/dilldylanpickle/ROP-Emporium-Solutions
 
 Step 2. Change directories into the ROP-Empormium-Solutions directory
-> $ cd ROP-Emporium-Solutions/Challenge-1
+> $ cd ROP-Emporium-Solutions/Challenge_1
 
 Step 3. Make the binaries executable with chmod
 > $ chmod u+x ret2win
