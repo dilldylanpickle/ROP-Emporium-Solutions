@@ -15,19 +15,16 @@ To run the scripts, you will need the following dependencies:
 
 Note that some challenges may have additional dependencies or requirements, as described in their respective README files.
 
-## Challenges
+## Challenge Solutions (x86 and x86_64 solutions only)
 
-- `callme32`
-- `callme64`
-- `fini`
-- `fluff32`
-- `fluff64`
-- `pivot32`
-- `pivot64`
-- `ret2win32`
-- `ret2win64`
-- `split32`
-- `split64`
+- `Challenge 1 - ret2win`
+- `Challenge 2 - split`
+- `Challenge 3 - callme`
+- `Challenge 4 - write4`
+- `Challenge 5 - badchars`
+- `Challenge 6 - fluff`
+- `Challenge 7 - pivot`
+- `Challenge 8 - ret2csu`
 
 Each challenge has its own directory containing the exploit script, any additional files needed, and a README file describing the challenge and my approach to solving it.
 
