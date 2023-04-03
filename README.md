@@ -33,7 +33,7 @@ Step 4. Run the pwntools script and get the flag!
 
 ## Challenge Solutions (x86 and x86_64 solutions only)
 
-- `Challenge 1 - ret2win` (https://github.com/dilldylanpickle/ROP-Emporium-Solutions/tree/main/Challenge_1)
+- `Challenge 1 - ret2win` (https://ropemporium.com/challenge/ret2win.html)
 - `Challenge 2 - split`
 - `Challenge 3 - callme`
 - `Challenge 4 - write4`
