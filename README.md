@@ -17,7 +17,7 @@ Note that some challenges may have additional dependencies or requirements, as d
 
 ## Challenge Solutions (x86 and x86_64 solutions only)
 
-- `Challenge 1 - ret2win`
+- `Challenge 1 - ret2win` (https://github.com/dilldylanpickle/ROP-Emporium-Solutions/tree/main/Challenge_1)
 - `Challenge 2 - split`
 - `Challenge 3 - callme`
 - `Challenge 4 - write4`
