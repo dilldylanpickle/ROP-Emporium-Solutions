@@ -1,6 +1,9 @@
 # ROP Emporium Solutions
 
-This repository contains my solutions to all the ROP Emporium challenges, utilizing only pwntools, gdb, and radare2. I completed these challenges on WSL2 Ubuntu-20.04 Yes, all these exploits worked inside WSL2!
+This repository contains my solutions to all the ROP Emporium challenges, utilizing only pwntools, gdb, and radare2. I completed these challenges on WSL2 Ubuntu-20.04 Yes, all these exploits worked inside WSL2! All of these python scripts are "autopwnable" so every script handles offset calculations, ROP chain constructions, etc. All you have to do is run the script and the flag is printed!
+
+Check out my Linux exploit development tool ROPcheck!
+ - Ropcheck Version 2.0 (https://github.com/dilldylanpickle/ROPcheck)
 
 ## Dependencies
 
