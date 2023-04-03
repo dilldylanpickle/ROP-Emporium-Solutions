@@ -10,7 +10,7 @@
 #   - Pwntools (https://github.com/Gallopsled/pwntools)
 #   - ROPgadget (https://github.com/JonathanSalwan/ROPgadget)
 #
-# dilldylanpickle@wsl:~/Exploit_Development/ROPemporium/ret2win$ python3 ret2win.py 
+# dilldylanpickle@wsl:~/Exploit_Development/ROPemporium/ret2win$ python3 ret2win64.py 
 # [*] '/home/dilldylanpickle/Exploit_Development/ROPemporium/ret2win/ret2win'
 #     Arch:     amd64-64-little
 #     RELRO:    Partial RELRO
