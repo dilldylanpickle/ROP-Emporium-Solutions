@@ -15,6 +15,22 @@ To run the scripts, you will need the following dependencies:
 
 Note that some challenges may have additional dependencies or requirements, as described in their respective README files.
 
+## Usage
+
+To download my solutions along with the challenges, follow these steps:
+
+Step 1. Clone the GitHub Repository
+> $ git clone https://github.com/dilldylanpickle/ROP-Emporium-Solutions
+
+Step 2. Change directories into the ROP-Empormium-Solutions directory
+> $ cd ROP-Emporium-Solutions/Challenge-1
+
+Step 3. Make the binaries executable with chmod
+> $ chmod u+x ret2win
+
+Step 4. Run the pwntools script and get the flag!
+> $ python3 ret2win64.py
+
 ## Challenge Solutions (x86 and x86_64 solutions only)
 
 - `Challenge 1 - ret2win` (https://github.com/dilldylanpickle/ROP-Emporium-Solutions/tree/main/Challenge_1)
