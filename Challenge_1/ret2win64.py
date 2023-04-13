@@ -9,28 +9,6 @@
 #   - Python 3.8.10
 #   - Pwntools (https://github.com/Gallopsled/pwntools)
 #   - ROPgadget (https://github.com/JonathanSalwan/ROPgadget)
-#
-# dilldylanpickle@wsl:~/Exploit_Development/ROPemporium/ret2win$ python3 ret2win64.py 
-# [*] '/home/dilldylanpickle/Exploit_Development/ROPemporium/ret2win/ret2win'
-#     Arch:     amd64-64-little
-#     RELRO:    Partial RELRO
-#     Stack:    No canary found
-#     NX:       NX enabled
-#     PIE:      No PIE (0x400000)
-# [+] Starting local process '/home/dilldylanpickle/Exploit_Development/ROPemporium/ret2win/ret2win': pid 6026
-# [*] Loaded 14 cached gadgets for './ret2win'
-# [*] ret2win by ROP Emporium
-#     x86_64
-# 
-#     For my first trick, I will attempt to fit 56 bytes of user input into 32 bytes of stack buffer!
-#     What could possibly go wrong?
-#     You there, may I have your input please? And don't worry about null bytes, we're using read()!
-# 
-#    > Thank you!
-#     Well done! Here's your flag:
-#     ROPE{a_placeholder_32byte_flag!}
-# [+] (SUCCESS) The flag has been sucessfully captured!
-# [*] Process '/home/dilldylanpickle/Exploit_Development/ROPemporium/ret2win/ret2win' stopped with exit code 0 (pid 6026) 
 
 import os           # Provides a way of using operating system dependent functionalities
 from pwn import *   # Import Python3 library for accessing operating system functionality
