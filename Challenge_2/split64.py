@@ -79,7 +79,7 @@ def find_offset(binary_path):
     return offset
 
 if __name__ == '__main__':
-    binary_path = './split64'
+    binary_path = './split'
     warnings.filterwarnings("ignore", category=BytesWarning)
     exploit(binary_path)
 
