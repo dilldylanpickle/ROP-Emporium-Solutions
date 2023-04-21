@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ROP Emporium - ret2win32 solution using pwntools library
+# ROP Emporium - split64 solution using pwntools library
 # Link: https://ropemporium.com/challenge/ret2win.html
 # Created by dilldylanpickle on 4-2-2023
 # GitHub: https://github.com/dilldylanpickle
