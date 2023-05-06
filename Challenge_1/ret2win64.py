@@ -88,7 +88,6 @@ def find_offset(binary_path):
         # Find the offset by searching for the cyclic pattern in the eip value
         offset = cyclic_find(core.read(core.rsp, 4))
 
-
         # Revert the log level to the original value
         context.log_level = log_level
 
