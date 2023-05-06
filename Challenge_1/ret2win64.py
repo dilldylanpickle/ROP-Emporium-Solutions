@@ -34,7 +34,7 @@ def exploit(binary_path):
 
         # Use ROPgadget to find the address of a "ret" instruction
         ret = rop.find_gadget(['ret'])[0]
-        print("[DEBUG] The address of ROP gadget ret is " + str(hex(ret)))
+        log.debug(f"The address of ROP gadget ret is {hex(ret)}")
 
         # Get the offset by calling the find_offset function
         offset = find_offset(binary_path)
