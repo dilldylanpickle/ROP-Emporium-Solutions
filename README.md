@@ -33,7 +33,7 @@ Step 4. Run the pwntools script and get the flag!
 
 ## Challenge Solutions (x86 and x86_64 solutions only)
 ### For each challenge, I have provided two different solutions: 
-- `Flag Solution` prints out the flag provided in the directory (Some encrypted flags are decrypted with the data files)
+- `Flag Solution` prints out the flag provided in the directory (Some flags are decrypted with the data files)
 - `Shell Solution` spawns a bourne shell to allow hypothetical remote code execution
 
 one that prints out the flag and one that gets a shell. Additionally, each solution includes offset calculations, ASLR compatibility, and detailed comments to help understand the code.
