@@ -41,22 +41,22 @@ Step 4. Run the pwntools script and get the flag!
   - [Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_2/split64.py) (x86_64)
 - `Challenge 3 - callme` (https://ropemporium.com/challenge/callme.html)
   - [Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_3/callme32.py) (x86)
-  - [Solution]() (x86_64)
+  - [Solution](TBA) (x86_64)
 - `Challenge 4 - write4`
-  - [Solution]() (x86)
-  - [Solution]() (x86_64)
+  - [Solution](TBA) (x86)
+  - [Solution](TBA) (x86_64)
 - `Challenge 5 - badchars`
-  - [Solution]() (x86)
-  - [Solution]() (x86_64) 
+  - [Solution](TBA) (x86)
+  - [Solution](TBA) (x86_64) 
 - `Challenge 6 - fluff`
-  - [Solution]() (x86)
-  - [Solution]() (x86_64)
+  - [Solution](TBA) (x86)
+  - [Solution](TBA) (x86_64)
 - `Challenge 7 - pivot`
-  - [Solution]() (x86)
-  - [Solution]() (x86_64)
+  - [Solution](TBA) (x86)
+  - [Solution](TBA) (x86_64)
 - `Challenge 8 - ret2csu`
-  - [Solution]() (x86)
-  - [Solution]() (x86_64)
+  - [Solution](TBA) (x86)
+  - [Solution](TBA) (x86_64)
 
 Each challenge has its own directory containing the exploit script, any additional files needed, and a README file describing the challenge and my approach to solving it.
 
