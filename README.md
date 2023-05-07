@@ -55,7 +55,7 @@ one that prints out the flag and one that gets a shell. Additionally, each solut
   - Shell Solution TBA (x86_64)
 - `Challenge 4 - write4` (https://ropemporium.com/challenge/write4.html)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_4/write432.py) (x86)
-  - Flag Solution TBA (x86_64)
+  - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_4/write464.py) (x86_64)
   - Shell Solution TBA (x86)
   - Shell Solution TBA (x86_64)
 - `Challenge 5 - badchars`
