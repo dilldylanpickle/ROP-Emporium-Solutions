@@ -35,8 +35,8 @@ Step 4. Run the pwntools script and get the flag!
 
 - `Challenge 1 - ret2win` (https://ropemporium.com/challenge/ret2win.html)
   - Challenge: (https://ropemporium.com/challenge/ret2win.html)
-  - Solution (x86): [Spoiler](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32.py)
-  - Solution (x86_64): [Spoiler](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win64.py)
+  - [Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32.py) (x86)
+  - [Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win64.py) (x86_64)
 - `Challenge 2 - split` (https://ropemporium.com/challenge/split.html)
   - Challenge: 
   - Solution (x86): 
