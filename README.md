@@ -8,7 +8,7 @@ Check out my Linux exploit development tool ROPcheck!
 ## Dependencies
 
 To run the scripts, you will need the following dependencies:
-- Python 3.8.10
+- Python 3.8.10 (https://www.python.org/downloads/release/python-3810/)
 - Pwntools (https://github.com/Gallopsled/pwntools)
 - Radare2 (https://github.com/radareorg/radare2)
 - gdb gef (https://github.com/hugsy/gef)
