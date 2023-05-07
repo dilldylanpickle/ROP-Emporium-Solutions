@@ -36,7 +36,7 @@ Step 4. Run the pwntools script and get the flag!
 - `Flag Solution` prints out the flag provided in the directory (Some flags are decrypted with the data files)
 - `Shell Solution` spawns a bourne shell to allow hypothetical remote code execution
 
-one that prints out the flag and one that gets a shell. Additionally, each solution includes offset calculations, ASLR compatibility, and detailed comments to help understand the code.
+Additionally, each solution includes offset calculations, ASLR compatibility, and detailed comments to help understand the code.
 
 - `Challenge 1 - ret2win` (https://ropemporium.com/challenge/ret2win.html)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32.py) (x86)
