@@ -32,32 +32,52 @@ Step 4. Run the pwntools script and get the flag!
 > $ python3 ret2win64.py
 
 ## Challenge Solutions (x86 and x86_64 solutions only)
-### For each challenge, I have provided two different solutions: one that prints out the flag and one that gets a shell. Additionally, each solution includes offset calculations, ASLR compatibility, and detailed comments to help understand the code.
+### For each challenge, I have provided two different solutions: 
+- `Flag Solution` prints out the flag provided in the directory (Some encrypted flags are decrypted with the data files)
+- `Shell Solution` spawns a bourne shell to allow hypothetical remote code execution
+
+one that prints out the flag and one that gets a shell. Additionally, each solution includes offset calculations, ASLR compatibility, and detailed comments to help understand the code.
 
 - `Challenge 1 - ret2win` (https://ropemporium.com/challenge/ret2win.html)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32.py) (x86)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win64.py) (x86_64)
+  - Shell Solution TBA (x86)
+  - Shell Solution TBA (x86_64)
 - `Challenge 2 - split` (https://ropemporium.com/challenge/split.html)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_2/split32.py) (x86)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_2/split64.py) (x86_64)
+  - Shell Solution TBA (x86)
+  - Shell Solution TBA (x86_64)
 - `Challenge 3 - callme` (https://ropemporium.com/challenge/callme.html)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_3/callme32.py) (x86)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_3/callme64.py) (x86_64)
+  - Shell Solution TBA (x86)
+  - Shell Solution TBA (x86_64)
 - `Challenge 4 - write4`
-  - TBA (x86)
-  - TBA (x86_64)
+  - Flag Solution TBA (x86)
+  - Flag Solution TBA (x86_64)
+  - Shell Solution TBA (x86)
+  - Shell Solution TBA (x86_64)
 - `Challenge 5 - badchars`
-  - TBA (x86)
-  - TBA (x86_64)
+  - Flag Solution TBA (x86)
+  - Flag Solution TBA (x86_64)
+  - Shell Solution TBA (x86)
+  - Shell Solution TBA (x86_64)
 - `Challenge 6 - fluff`
-  - TBA (x86)
-  - TBA (x86_64)
+  - Flag Solution TBA (x86)
+  - Flag Solution TBA (x86_64)
+  - Shell Solution TBA (x86)
+  - Shell Solution TBA (x86_64)
 - `Challenge 7 - pivot`
-  - TBA (x86)
-  - TBA (x86_64)
+  - Flag Solution TBA (x86)
+  - Flag Solution TBA (x86_64)
+  - Shell Solution TBA (x86)
+  - Shell Solution TBA (x86_64)
 - `Challenge 8 - ret2csu`
-  - TBA (x86)
-  - TBA (x86_64)
+  - Flag Solution TBA (x86)
+  - Flag Solution TBA (x86_64)
+  - Shell Solution TBA (x86)
+  - Shell Solution TBA (x86_64)
 
 Each challenge has its own directory containing the exploit script, any additional files needed, and a README file describing the challenge and my approach to solving it.
 
