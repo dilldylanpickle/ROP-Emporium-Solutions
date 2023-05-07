@@ -32,7 +32,7 @@ Step 4. Run the pwntools script and get the flag!
 > $ python3 ret2win64.py
 
 ## Challenge Solutions (x86 and x86_64 solutions only)
-# For each challenge, I have provided two different solutions: one that prints out the flag and one that gets a shell. Additionally, each solution includes offset calculations, ASLR compatibility, and detailed comments to help understand the code.
+### For each challenge, I have provided two different solutions: one that prints out the flag and one that gets a shell. Additionally, each solution includes offset calculations, ASLR compatibility, and detailed comments to help understand the code.
 
 - `Challenge 1 - ret2win` (https://ropemporium.com/challenge/ret2win.html)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32.py) (x86)
