@@ -34,16 +34,37 @@ Step 4. Run the pwntools script and get the flag!
 ## Challenge Solutions (x86 and x86_64 solutions only)
 
 - `Challenge 1 - ret2win` (https://ropemporium.com/challenge/ret2win.html)
-  - 'Challenge:' (https://ropemporium.com/challenge/ret2win.html)
-  - 'Solution (x86):' https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32.py
-  - 'Solution (x86_64):' https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win64.py
+  - Challenge: (https://ropemporium.com/challenge/ret2win.html)
+  - Solution (x86): https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32.py
+  - Solution (x86_64): https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win64.py
 - `Challenge 2 - split` (https://ropemporium.com/challenge/split.html)
+  - Challenge: 
+  - Solution (x86): 
+  - Solution (x86_64): 
 - `Challenge 3 - callme` (https://ropemporium.com/challenge/callme.html)
+  - Challenge: 
+  - Solution (x86): 
+  - Solution (x86_64): 
 - `Challenge 4 - write4`
+  - Challenge: 
+  - Solution (x86): 
+  - Solution (x86_64): 
 - `Challenge 5 - badchars`
+  - Challenge: 
+  - Solution (x86): 
+  - Solution (x86_64): 
 - `Challenge 6 - fluff`
+  - Challenge: 
+  - Solution (x86): 
+  - Solution (x86_64): 
 - `Challenge 7 - pivot`
+  - Challenge: 
+  - Solution (x86): 
+  - Solution (x86_64): 
 - `Challenge 8 - ret2csu`
+  - Challenge: 
+  - Solution (x86): 
+  - Solution (x86_64): 
 
 Each challenge has its own directory containing the exploit script, any additional files needed, and a README file describing the challenge and my approach to solving it.
 
