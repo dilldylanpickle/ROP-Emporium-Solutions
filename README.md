@@ -41,7 +41,7 @@ Step 4. Run the pwntools script and get the flag!
   - [Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_2/split64.py) (x86_64)
 - `Challenge 3 - callme` (https://ropemporium.com/challenge/callme.html)
   - [Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_3/callme32.py) (x86)
-  - TBA (x86_64)
+  - [Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_3/callme64.py) (x86_64)
 - `Challenge 4 - write4`
   - TBA (x86)
   - TBA (x86_64)
