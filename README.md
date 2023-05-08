@@ -39,9 +39,9 @@ Step 4. Run the pwntools script and get the flag!
 Additionally, each solution includes offset calculations, ASLR compatibility, and detailed comments to help understand the code.
 
 - `Challenge 1 - ret2win` (https://ropemporium.com/challenge/ret2win.html)
-  - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32.py) (x86)
-  - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win64.py) (x86_64)
-  - Shell Solution TBA (x86)
+  - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32_flag.py) (x86)
+  - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win64_flag.py) (x86_64)
+  - [Shell Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_1/ret2win32_shell.py) (x86)
   - Shell Solution TBA (x86_64)
 - `Challenge 2 - split` (https://ropemporium.com/challenge/split.html)
   - [Flag Solution](https://github.com/dilldylanpickle/ROP-Emporium-Solutions/blob/main/Challenge_2/split32.py) (x86)
